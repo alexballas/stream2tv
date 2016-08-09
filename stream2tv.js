@@ -61,7 +61,7 @@ streamserver.on('request', function (req, res) {
 			file.pipe(res);
 		} else {
 			console.log('ALL: ' + total);
-			res.writeHead(200, { 'Content-Length': total, 'Content-Type': 'video/mp4', "transferMode.dlna.org": "Streaming", "contentFeatures.dlna.org": "DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=017000 00000000000000000000000000", "CaptionInfo.sec": url_subtitle });
+			res.writeHead(200, { 'Content-Length': 1, 'Content-Type': 'video/mp4', "transferMode.dlna.org": "Streaming", "contentFeatures.dlna.org": "DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=017000 00000000000000000000000000", "CaptionInfo.sec": url_subtitle });
 			fs.createReadStream(path, {start: 0, end: 1}).pipe(res);
 		}
 	}
