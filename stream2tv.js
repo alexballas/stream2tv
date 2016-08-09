@@ -26,7 +26,6 @@ console.log(url_video);
 var streamserver = http.createServer();
 
 streamserver.on('request', function (req, res) {
-	console.log(req.url);
 	if (req.url.indexOf(".srt") != -1) {
 		res.writeHead(200, { "Content-Type": "text/html" });
 		var fileS = filename_o.replace(/\.[^/.]+$/, ".srt");
@@ -55,7 +54,6 @@ streamserver.on('request', function (req, res) {
 			var start = parseInt(partialstart, 10);
 			var end = partialend ? parseInt(partialend, 10) : total-1;
 			var chunksize = (end-start)+1;
-			console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
 			var file = fs.createReadStream(path, {start: start, end: end});
 			res.writeHead(206, {
 				'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
@@ -68,7 +66,6 @@ streamserver.on('request', function (req, res) {
 			});
 			file.pipe(res);
 		} else {
-			console.log('ALL: ' + total);
 			res.writeHead(200, {
 				'Content-Length': 1,
 				'Content-Type': 'video/mp4',
