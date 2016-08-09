@@ -1,12 +1,11 @@
 # stream2tv
 Stream any local video file to any UPnP/DLNA MediaRenderer. Supports subtitles too.
 
-# Prerequisites
+## Prerequisites
 ```
 $ npm install upnp-mediarenderer-client nodecast-js xmlbuilder keypress
 ```
-
-# Configuration
+## Configuration
 Change the following settings.
 ```
 var settings = { 
@@ -15,8 +14,7 @@ var settings = {
 	tvIP: "192.168.88.249"
 };
 ```
-
-# Running
+## Running
 ```
 $ node stream2tv.js <a video file>
 ```
