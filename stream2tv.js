@@ -57,11 +57,25 @@ streamserver.on('request', function (req, res) {
 			var chunksize = (end-start)+1;
 			console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
 			var file = fs.createReadStream(path, {start: start, end: end});
-			res.writeHead(206, { 'Content-Range': 'bytes ' + start + '-' + end + '/' + total, 'Accept-Ranges': 'bytes', 'Content-Length': chunksize, 'Content-Type': 'video/mp4', "transferMode.dlna.org": "Streaming", "contentFeatures.dlna.org": "DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=017000 00000000000000000000000000", "CaptionInfo.sec": url_subtitle });
+			res.writeHead(206, {
+				'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
+				'Accept-Ranges': 'bytes',
+				'Content-Length': chunksize,
+				'Content-Type': 'video/mp4',
+				"transferMode.dlna.org": "Streaming",
+				"contentFeatures.dlna.org": "DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=017000 00000000000000000000000000",
+				"CaptionInfo.sec": url_subtitle
+			});
 			file.pipe(res);
 		} else {
 			console.log('ALL: ' + total);
-			res.writeHead(200, { 'Content-Length': 1, 'Content-Type': 'video/mp4', "transferMode.dlna.org": "Streaming", "contentFeatures.dlna.org": "DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=017000 00000000000000000000000000", "CaptionInfo.sec": url_subtitle });
+			res.writeHead(200, {
+				'Content-Length': 1,
+				'Content-Type': 'video/mp4',
+				"transferMode.dlna.org": "Streaming",
+				"contentFeatures.dlna.org": "DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=017000 00000000000000000000000000",
+				"CaptionInfo.sec": url_subtitle
+			});
 			fs.createReadStream(path, {start: 0, end: 1}).pipe(res);
 		}
 	}
@@ -83,6 +97,7 @@ var options = {
 	},
 	contentType: "video/mp4"
 };
+
 var browser = new Browser();
 
 browser.onDevice(function (device) {
