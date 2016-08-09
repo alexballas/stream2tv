@@ -8,14 +8,15 @@ var fs = require("fs"),
 
 var settings = { 
 	localIP: "192.168.88.250",
+	localPort: 8000,
 	tvIP: "192.168.88.249"
 };
 
 var filename_o = process.argv[2];
 var filename  = encodeURIComponent(filename_o);
 
-var url_video = 'http://' + settings.localIP + ':8000/' + filename;
-var url_subtitle = 'http://' + settings.localIP + ':8000/' + filename.replace(/\.[^/.]+$/, ".srt");
+var url_video = 'http://' + settings.localIP + ':' + settings.localPort +'/' + filename;
+var url_subtitle = 'http://' + settings.localIP + ':' + settings.localPort + '/' + filename.replace(/\.[^/.]+$/, ".srt");
 
 keypress(process.stdin);
 
@@ -70,7 +71,7 @@ streamserver.on('connection', function (socket) {
 	socket.setTimeout(36000000)
 })
 
-streamserver.listen(8000);
+streamserver.listen(settings.localPort);
 
 metadata = xmlb.create('DIDL-Lite', {
 		'headless': true
