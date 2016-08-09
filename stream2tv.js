@@ -118,7 +118,6 @@ var options = {
 };
 
 var browser = new Browser();
-var timerId = "";
 
 browser.onDevice(function (device) {
 	console.log(device);
@@ -143,7 +142,6 @@ browser.onDevice(function (device) {
 		client.on('playing', function() {
 		  console.log('Playing ...');
 		  playback_status = "playing";
-		  //clearTimeout(timerId);		 
 		  client.getPosition(function(err, position) {
 			//console.log(position); // Current position in seconds 
 		  });
