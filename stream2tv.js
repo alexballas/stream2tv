@@ -136,7 +136,7 @@ browser.onDevice(function (device) {
 		 
 		client.on('stopped', function() {
 		  console.log('stopped');
-		  //process.exit();
+		  process.exit();
 		});
 		 
 		client.on('speedChanged', function(speed) {
