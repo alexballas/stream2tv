@@ -4,7 +4,7 @@
 	"description": "",
 	"author": "Alex Ballas <alex@ballas.org>",
 	"bin": {
-		"module-name": "stream2tv.js"
+		"stream2tv": "stream2tv.js"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
