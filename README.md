@@ -3,7 +3,7 @@ Stream any local video file to any UPnP/DLNA MediaRenderer. Supports subtitles t
 
 ## Installation
 ```
-# npm install -g https://github.com/alexballas/stream2tv.git
+# npm install -g stream2tv
 ```
 ## Usage
 ```
