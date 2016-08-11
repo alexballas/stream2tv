@@ -1,6 +1,6 @@
 {
 	"name": "stream2tv",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "",
 	"author": "Alex Ballas <alex@ballas.org>",
 	"bin": {
@@ -24,6 +24,7 @@
 	"dependencies": {
 		"upnp-mediarenderer-client": "1.2.4",
 		"nodecast-js": "1.0.3",
+		"network-address": "1.1.0",
 		"keypress": "0.2.1"
 	}
 }

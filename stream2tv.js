@@ -5,12 +5,12 @@ var fs = require("fs"),
 	url = require("url"),
 	Browser = require('nodecast-js'),
 	MediaRendererClient = require('upnp-mediarenderer-client'),
+	local_address = require('network-address'),
 	keypress = require('keypress');
 
 var settings = { 
-	localIP: "192.168.88.250",
-	localPort: 8000,
-	tvIP: "192.168.88.249"
+	localIP: local_address(),
+	localPort: 34242
 };
 
 var filename_o = process.argv[2];
@@ -21,11 +21,7 @@ var url_subtitle = 'http://' + settings.localIP + ':' + settings.localPort + '/'
 
 keypress(process.stdin);
 
-console.log(url_subtitle);
-console.log(url_video);
-
 var streamserver = http.createServer();
-
 streamserver.on('request', function (req, res) {
 	if (req.url.indexOf(".srt") != -1) {
 		res.writeHead(200, { "Content-Type": "text/html" });
@@ -45,7 +41,15 @@ streamserver.on('request', function (req, res) {
 
 	if (req.url.indexOf(".srt") == -1 && req.url.indexOf(".ico") == -1) {
 		var path = filename_o;
+		try {
 		var stat = fs.statSync(filename_o);
+		} catch(e) {
+			console.log("ERROR");
+			if (e.errno == -2) {
+				console.log(e.path+": NOT FOUND");
+			}
+			process.exit(e.errno);
+		}
 		var total = stat.size;
 		if (req.headers['range']) {
 			var range = req.headers.range;
@@ -97,11 +101,14 @@ var options = {
 };
 
 var browser = new Browser();
+var count = 0
 
 browser.onDevice(function (device) {
-	console.log(device);
-	if (device.host == settings.tvIP && device.type == 'upnp') {
-		//var client = new MediaRendererClient('http://192.168.88.249:9197/dmr');
+	if (device.type == 'upnp') {
+		count++;
+	}
+	// Connect to the first upnp device we find.
+	if (count == 1 && device.type == 'upnp') {
 		var client = new MediaRendererClient(device.xml);
 		var playback_status = null;
 		client.load(url_video, options, function(err, result) {
@@ -146,7 +153,7 @@ browser.onDevice(function (device) {
 
 		// listen for the "keypress" event
 		process.stdin.on('keypress', function (ch, key) {
-  			try {
+			try {
 				if (key.name == 'p') {
 					if (playback_status == "playing") {
 						client.pause();
@@ -157,16 +164,12 @@ browser.onDevice(function (device) {
 				if (key.name == 'f') { 
 					client.getPosition(function(err, position) {
 						client.seek(Math.round(position + 60)); // Media duration in seconds 
-				});
+					});
 				}
 				if (key.name == 'b') {
 					client.getPosition(function(err, position) {
 						client.seek(-60);
-				});
-				}
-				if (key.ctrl && key.name == 'c') {
-					client.stop();
-					setTimeout(function(){ process.exit() }, 3000);
+					});
 				}
 			} catch(e){
 				console.log("Error during keypress: ",e)
@@ -178,5 +181,10 @@ browser.onDevice(function (device) {
 	});
 });
 
+process.stdin.on('keypress', function (ch, key) {
+	if (key.ctrl && key.name == 'c') {
+		process.exit();
+	}
+});
 browser.start();
 process.stdin.setRawMode(true);
