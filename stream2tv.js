@@ -3,7 +3,6 @@ var fs = require("fs"),
 	url = require("url"),
 	Browser = require('nodecast-js'),
 	MediaRendererClient = require('upnp-mediarenderer-client'),
-	xmlb = require('xmlbuilder'),
 	keypress = require('keypress');
 
 var settings = { 
