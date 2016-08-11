@@ -1,9 +1,9 @@
 # stream2tv
 Stream any local video file to any UPnP/DLNA MediaRenderer. Supports subtitles too.
 
-## Prerequisites
+## Installation
 ```
-$ sudo npm install -g https://github.com/alexballas/stream2tv.git
+# npm install -g https://github.com/alexballas/stream2tv.git
 ```
 ## Usage
 ```
