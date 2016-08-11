@@ -3,7 +3,7 @@ Stream any local video file to any UPnP/DLNA MediaRenderer. Supports subtitles t
 
 ## Prerequisites
 ```
-$ npm install upnp-mediarenderer-client nodecast-js keypress
+$ sudo npm install -g https://github.com/alexballas/stream2tv.git
 ```
 ## Configuration
 Change the following settings.
@@ -16,5 +16,5 @@ var settings = {
 ```
 ## Usage
 ```
-$ node stream2tv.js <a video file>
+$ stream2tv <a video file>
 ```
