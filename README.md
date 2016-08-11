@@ -14,7 +14,7 @@ var settings = {
 	tvIP: "192.168.88.249"
 };
 ```
-## Running
+## Usage
 ```
 $ node stream2tv.js <a video file>
 ```
