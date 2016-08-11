@@ -3,7 +3,7 @@ Stream any local video file to any UPnP/DLNA MediaRenderer. Supports subtitles t
 
 ## Prerequisites
 ```
-$ npm install upnp-mediarenderer-client nodecast-js xmlbuilder keypress
+$ npm install upnp-mediarenderer-client nodecast-js keypress
 ```
 ## Configuration
 Change the following settings.
