@@ -171,6 +171,9 @@ browser.onDevice(function (device) {
 						client.seek(-60);
 					});
 				}
+				if (key.name == 'q') {
+					client.stop();
+				}
 			} catch(e){
 				console.log("Error during keypress: ",e)
 			}
