@@ -175,7 +175,7 @@ browser.onDevice(function (device) {
 					client.stop();
 				}
 			} catch(e){
-				console.log("Error during keypress: ",e)
+				console.log("Error during keypress: ",e);
 			}
 		});
 	}
@@ -185,8 +185,12 @@ browser.onDevice(function (device) {
 });
 
 process.stdin.on('keypress', function (ch, key) {
-	if (key.ctrl && key.name == 'c') {
-		process.exit();
+	try {
+		if (key.ctrl && key.name == 'c') {
+			process.exit();
+		}
+	} catch(e){
+		 console.log("Error during keypress: ",e);
 	}
 });
 browser.start();
