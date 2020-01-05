@@ -1,6 +1,6 @@
 {
 	"name": "stream2tv",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "Stream any local video file to any UPnP/DLNA MediaRenderer. Supports subtitles too.",
 	"author": "Alex Ballas <alex@ballas.org>",
 	"bin": {
