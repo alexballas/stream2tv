@@ -3,6 +3,7 @@
 var fs = require("fs"),
 	http = require("http"),
 	url = require("url"),
+	path = require("path"),
 	Browser = require('nodecast-js'),
 	MediaRendererClient = require('upnp-mediarenderer-client'),
 	local_address = require('network-address'),
@@ -95,7 +96,7 @@ var options = {
 		subtitlesUrl: url_subtitle,
 		url: url_video,
 		type: "video",
-		title: filename_o
+		title: path.basename(filename_o)
 	},
 	contentType: "video/mp4"
 };
