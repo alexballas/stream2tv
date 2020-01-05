@@ -8,7 +8,7 @@ var fs = require("fs"),
 	local_address = require('network-address'),
 	keypress = require('keypress');
 
-var settings = { 
+var settings = {
 	localIP: local_address(),
 	localPort: 34242
 };
@@ -89,13 +89,13 @@ streamserver.on('connection', function (socket) {
 
 streamserver.listen(settings.localPort);
 
-var options = { 
+var options = {
 	autoplay: true,
 	metadata: {
 		subtitlesUrl: url_subtitle,
 		url: url_video,
 		type: "video",
-		title: 'Stream2TV'
+		title: filename_o
 	},
 	contentType: "video/mp4"
 };
@@ -115,40 +115,20 @@ browser.onDevice(function (device) {
 			console.log('Starting ...');
 		});
 		client.on('status', function(status) {
-		  // Reports the full state of the AVTransport service the first time it fires, 
-		  // then reports diffs. Can be used to maintain a reliable copy of the 
-		  // service internal state. 
-		  // console.log(status);
+			// Reports the full state of the AVTransport service the first time it fires,
+			// then reports diffs. Can be used to maintain a reliable copy of the
+			// service internal state. Used for debugging.
+			// console.log(status);
 		});
-		 
-		client.on('loading', function() {
-		  //console.log('loading');
-		});
-		 
+
 		client.on('playing', function() {
-		  console.log('Playing ...');
-		  playback_status = "playing";
-		  client.getPosition(function(err, position) {
-			//console.log(position); // Current position in seconds 
-		  });
-		 
-		  client.getDuration(function(err, duration) {
-			//console.log(duration); // Media duration in seconds 
-		  });
+			console.log('Playing ...');
+			playback_status = "playing";
 		});
-		 
+
 		client.on('paused', function() {
-		  console.log('paused');
-		  playback_status = "paused";
-		});
-		 
-		client.on('stopped', function() {
-		  console.log('stopped');
-		  process.exit();
-		});
-		 
-		client.on('speedChanged', function(speed) {
-		  console.log('speedChanged', speed);
+			console.log('paused');
+			playback_status = "paused";
 		});
 
 		// listen for the "keypress" event
@@ -161,21 +141,11 @@ browser.onDevice(function (device) {
 						client.play();
 					}
 				}
-				if (key.name == 'f') { 
-					client.getPosition(function(err, position) {
-						client.seek(Math.round(position + 60)); // Media duration in seconds 
-					});
-				}
-				if (key.name == 'b') {
-					client.getPosition(function(err, position) {
-						client.seek(-60);
-					});
-				}
 				if (key.name == 'q') {
 					client.stop();
 				}
 			} catch(e){
-				console.log("Error during keypress: ",e);
+				console.log("unknown keypress");
 			}
 		});
 	}
@@ -190,8 +160,9 @@ process.stdin.on('keypress', function (ch, key) {
 			process.exit();
 		}
 	} catch(e){
-		 console.log("Error during keypress: ",e);
+		console.log("unknown keypress");
 	}
 });
+
 browser.start();
 process.stdin.setRawMode(true);
