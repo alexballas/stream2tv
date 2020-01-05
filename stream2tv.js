@@ -131,6 +131,11 @@ browser.onDevice(function (device) {
 			playback_status = "paused";
 		});
 
+		client.on('stopped', function() {
+			console.log('stopped');
+			process.exit();
+		});
+
 		// listen for the "keypress" event
 		process.stdin.on('keypress', function (ch, key) {
 			try {
