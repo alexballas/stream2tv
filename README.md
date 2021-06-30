@@ -1,4 +1,4 @@
-# Not actively maintained - Please check out the Golang port here https://github.com/alexballas/go2tv
+# Not maintained - Please check the Go port here: https://github.com/alexballas/go2tv
 
 # stream2tv
 Stream any local video file to any UPnP/DLNA MediaRenderer. Supports subtitles too.
